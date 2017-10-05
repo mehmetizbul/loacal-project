@@ -1,0 +1,4 @@
+INSERT INTO `users` (`id`, `name`, `slug`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `activated`) VALUES
+(2, 'Mustafa Buda', 'mustafabuda', 'mustafabuda@gmail.com', '$2y$10$48cXTMfutUkcBwji.dfi1Op7suLie4V65R1iZCXR/PW9rFX5nn1Fa', 'fQEaA9qh0hWa23Zx4Lv84uMg4z9GJrbi3kc2xRAkb15P8bh3hpF95Xdd0tOe', '2016-02-29 17:08:42', '2017-05-01 17:04:17', 1),
+(3, 'Aysem Zorlu', 'aysemzorlu', 'aysemzorlu@loacal.com', '$2y$10$8gu.3duVAoEMCNhAxfZkSeq8AxxjPhExQt5eteHbwMzboYZhCTicu', 'ZDtfICGtsBT9Ods0Lykgkqq6yb9x17gzI0MMlAWXapgmtIQkR3NzeLZDPH3Z', '2016-02-29 18:07:42', '2017-05-01 17:32:10', 1),
+(91, 'Bugra Ergin', 'bugraergin', 'bugraergin@gmail.com', '$2y$10$hGzo/dZsUWNPFY9t.bqC5OSqxfuoDn8V0IfMd1wMddIZ7CmIjjK6C', 'zDvwniDXovSCAZDMUb8BMJnID5Axc6PxpLf7i3C40iDnPnabaa4k9TyQYDam', '2016-05-30 03:27:14', '2017-05-01 01:02:14', 1) ON DUPLICATE KEY UPDATE `password` = VALUES(`password`);

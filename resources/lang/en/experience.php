@@ -1,0 +1,40 @@
+<?php
+
+return [
+    // Single Experience
+    'price_from' => 'from',
+    'request_booking' => 'Request Booking',
+    'availability' => 'Availability',
+    'monday' => 'M',
+    'tuesday' => 'T',
+    'wednesday' => 'W',
+    'thursday' => 'T',
+    'friday' => 'F',
+    'saturday' => 'S',
+    'sunday' => 'S',
+    'provided_by' => 'Provided By :loacal_name',
+    'certificates' => 'Certificates',
+    'languages' => 'Languages',
+    'preferences' => 'Preferences',
+    'other_experiences_of_the_loacal' => 'Other Experiences of the Loacal',
+    'similar_experiences' => 'Similar Experiences',
+
+    // Explore Page
+    'preferred_dates' => 'Preferred Dates',
+    'number_of_people' => 'Number of People',
+    'price_range' => 'Price Range',
+    'sort_by' => 'Sort by',
+    'recommended' => 'Recommended',
+    'price_low_to_high' => 'Price (low to high)',
+    'price_high_to_low' => 'Price (high to low)',
+    'name_a_z' => 'Name (A-Z)',
+    'name_z_a' => 'Name (Z-A)',
+    'lang_of_the_exp' => 'Language of the Experience',
+    'transport' => 'Transport',
+    'accommodation' => 'Accommodation',
+    'other_filtering' => 'Other Filtering',
+    'travelling_with_kids' => 'Travelling with Kids',
+    'travelling_with_a_disabled' => 'Travelling with a Disabled Person',
+    'looking_for_free_exp' => 'Are you looking for a free experience',
+    'load_more' => 'Load More',
+];
