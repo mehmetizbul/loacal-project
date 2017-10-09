@@ -374,11 +374,17 @@ class OfflineExperiencesController extends Controller
             foreach($all["resources"] as $res){
                 $title = $res["title"];
                 $price = $res["price"];
+
+                if(!$price)
+                    $price = 0;
+
+                if($title){
                     $aRes[] = [
                         "experience_id" => $all["id"],
                         "title" =>  $title,
                         "cost" =>  $price
                     ];
+                }
 
             }
             DB::table('experience_resources')->where('experience_id', '=', $id)->delete();

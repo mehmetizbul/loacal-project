@@ -13,6 +13,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use App\Country;
 use Log;
+use DB;
 
 class ExperiencesController extends Controller
 {
@@ -48,14 +49,26 @@ class ExperiencesController extends Controller
         }
 
         if(isset($meta["categories"]) && !empty($meta["categories"])){
-            $query->leftJoin('experience_categories','experiences.id','=','experience_categories.experience_id')
-                ->whereIn('experience_categories.category_id',$meta["categories"]);
+
+            $query->with('categoriesREL')->whereHas('categoriesREL', function($innerQuery) use($meta){
+                $innerQuery->wherein('category_id', $meta["categories"]);
+            });
+        }
+
+        if(isset($meta["cities"]) && !empty($meta["cities"])){
+
+            $query->with('experiencecountry')->whereHas('experiencecountry', function($innerQuery) use($meta){
+                $innerQuery->wherein('country_id', $meta["cities"]);
+            });
         }
 
         if(isset($meta["languages"]) && !empty($meta["languages"])){
-            $query->leftJoin('experience_languages','experiences.id','=','experience_languages.experience_id')
-                ->whereIn('experience_languages.language_id',$meta["languages"]);
+            $query->with('languagesREL')->whereHas('languagesREL', function($innerQuery) use($meta){
+                $innerQuery->wherein('language_id', $meta["languages"]);
+            });
         }
+
+
         if(isset($meta["loacal-accommodation"])){
             $query->where('accommodation','=',$meta["loacal-accommodation"]);
         }
@@ -76,10 +89,16 @@ class ExperiencesController extends Controller
         $no_of_people = null;
         if(isset($meta["no_of_people"]) && !empty($meta["no_of_people"]) && intval($meta["no_of_people"]) > 0){
             $no_of_people = intval($meta["no_of_people"]);
-            $query->leftJoin('experience_prices','experiences.id','=','experience_prices.experience_id')
-                ->where('max','>=',$no_of_people)
-                ->where('min','<=',$no_of_people);
+
+
+            $query->with('prices')->whereHas('prices', function($innerQuery) use($no_of_people){
+                $innerQuery->where('max','>=',$no_of_people)
+                    ->where('min','<=',$no_of_people);
+            });
+
             $meta["no_of_people"] = $no_of_people;
+
+
         }
 
         $aExp = $query->distinct()->get();
@@ -156,7 +175,10 @@ class ExperiencesController extends Controller
                 'path' => LengthAwarePaginator::resolveCurrentPath(),
             ]
         );
+        foreach ($aExp as $Exp)
+        {
 
+        }
 
         return view('experience.index',compact('aExp','meta'));
     }

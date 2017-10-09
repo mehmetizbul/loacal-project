@@ -20,7 +20,7 @@
                 <ul id="bxslider-filter">
                     @foreach(\App\Category::whereParent(0)->get() as $oCat)
                         <li>
-                            <input class="filter-field" nameattr="filter[categories][]" {{ isset($meta["categories"]) ? "name='filter[categories][]'" : "" }} {{ isset($meta["categories"]) ? in_array($oCat->id,$meta["categories"]) ? "checked" : "" : "" }} value="{{ $oCat->id }}" type="checkbox" id="{{ $oCat->name }}">
+                            <input class="filter-field" nameattr="filter[categories][]" name="filter[categories][]" {{ isset($meta["categories"]) ? in_array($oCat->id,$meta["categories"]) ? "checked" : "" : "" }} value="{{ $oCat->id }}" type="checkbox" id="{{ $oCat->name }}">
                             <label for="{{ $oCat->name }}"><img src="{{ $oCat->icon() }}"><span>{{ $oCat->name }}</span></label>
                         </li>
                     @endforeach
@@ -81,7 +81,7 @@
                     <button class="location-main-buttons" location-name="{{ $oCountry->name }}">{{ $oCountry->name }} ({{ $oCountry->experience_country()->count() }})</button>
                     <div class="sub-locations" style="display:none">
                         @foreach(\App\Country::cities($oCountry->id) as $oCity)
-                            <button location-name="{{ $oCity->name }}">{{ $oCity->name }} ({{ $oCity->experience_country()->count() }})</button>
+                            <button value="{{$oCity->id}}" location-name="{{ $oCity->name }}">{{ $oCity->name }} ({{ $oCity->experience_country()->count() }})</button>
                         @endforeach
                     </div>
                 @endforeach
@@ -131,8 +131,7 @@
             slideWidth: 150,
             slideMargin: 10,
             moveSlides: 1,
-            pager: false,
-            adaptiveHeight: true
+            infiniteLoop:false
         });
         $("#priceSlider").slider();
         $(".datepicker").datepicker({
@@ -212,7 +211,10 @@
             e.preventDefault();
             var locationName = $(this).attr("location-name");
             if ($(this).hasClass("active")) {
+
                 $(this).removeClass("active")
+                document.getElementById($(this).val()).remove();
+
                 mapoverlays.forEach(function(item, index) {
                     if (item.lat == locationList[locationName].coordinates.lat && item.lng == locationList[locationName].coordinates.ln) {
                         mapoverlays.splice(index, 1);
@@ -235,6 +237,11 @@
                 }
                 
             } else {
+
+
+                $(this).append('<input class="cities" type="hidden" nameattr="filter[cities][]" name="filter[cities][]" value="'+$(this).val()+'" id="'+$(this).val()+'">');
+
+
                 $(this).addClass("active")
                 selectedLocations.push(locationName);
                 console.log(selectedLocations)

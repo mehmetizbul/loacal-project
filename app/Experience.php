@@ -322,6 +322,10 @@ class Experience extends Model
         return $aRet;
     }
 
+    public function languagesREL(){
+        return $this->hasMany('App\ExperienceLanguage');
+    }
+
     public function countries(){
         $aCoun = $this->hasMany('App\ExperienceCountry')->get();
         $aRet = [];

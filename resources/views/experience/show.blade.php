@@ -78,7 +78,7 @@
                     @foreach($oExp->images() as $oImg)
                         <div>
                             <a href="/{{ $oImg->getAttribute('image_file') }}" data-lightbox="rhino-lightbox">
-                                <img style="width: 100%;" src="/{{ $oImg->getAttribute('image_file') }}" alt="" />
+                                <img style="display: block; max-width:400px;max-height:400px;width: auto;height: auto;" src="/{{ $oImg->getAttribute('image_file') }}" alt="" />
 
                             </a>
                         </div>
@@ -407,7 +407,35 @@
             $('#slickSliderGallery').slick({
                 arrows: false,
                 fade: false,
-                dots: false
+                dots: false,
+                adaptiveHeight: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll:1
+
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll:1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
             });
 
             $("input").keyup(function(){
