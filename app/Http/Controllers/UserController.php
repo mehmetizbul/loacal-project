@@ -197,6 +197,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+
+        DB::table('user_certificates')->where('user_id', $id)->delete();
+
         return redirect()->route('user.index')
             ->with('success','User deleted successfully');
     }

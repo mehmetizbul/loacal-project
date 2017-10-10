@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Certificate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class CertificateController extends Controller
 {
@@ -118,7 +120,7 @@ class CertificateController extends Controller
     public function destroy($id)
     {
         $aRe = Certificate::find($id);
-        if(count($aRe->experience_relations())){
+        if(count($aRe->user_relations())){
             $rules['existing_experiences'] = 'required';
             $messages['existing_experiences.required'] = "You cannot delete a certificate that is being used by an Experience";
             $validator = Validator::make([],$rules,$messages);
